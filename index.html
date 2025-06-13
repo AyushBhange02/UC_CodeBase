@@ -145,256 +145,530 @@
     </section>
     <!-- ===== END OF HERO SECTION ===== -->
     <!-- ================COMPARISON SECTION STARTS================ -->
-    <section class="comparison-section">
-        <h2 class="automation-title">Step into automation</h2>
-        <div class="comparison-container">
-            <div class="comparison-card">
-                <div class="comparison-header">
-                    <div class="comparison-tab before">Before</div>
-                    <div class="comparison-tab after">After</div>
-                </div>
-
-                <div class="comparison-content">
-                    <div class="comparison-side before">
-                        <h3 class="comparison-title">Without UtilizeCore</h3>
-
-                        <div class="accordion" id="before-accordion">
-                            <div class="accordion-item" data-index="0">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✕</span>
-                                        20 Minutes Per Work Order
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Generating and distributing work orders often requires
-                                        dual data entry and various communication methods. On
-                                        average it takes 20 minutes to generate a single work
-                                        order.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="1">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✕</span>
-                                        No Visibility Into Work Performed
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        When your reputation relies on the quality of your work, not having clear
-                                        visibility over your workforce is detrimental to quality assurance.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="2">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✕</span>
-                                        Disconnected Communication Methods
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Relying on subcontractors to provide job updates and photos can take hours (if
-                                        not days), which causes unnecessary delays.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="3">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✕</span>
-                                        30 Minutes Per Invoice
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Cross referencing rate tables and calculating invoices takes 30 minutes per
-                                        invoice (on average), leading to oversights, delays and lost income.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="4">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✕</span>
-                                        Hours for Subcontractor Compliance & Onboarding
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Onboarding new subcontractors involves compliance checks, paperwork, and manual
-                                        tasks that can take up to 5 hours to complete.
-                                    </div>
-                                </div>
-                            </div>
+    <div class="accordion-main-container screen">
+        <div class="container-fluid">
+          <div class="row g-4">
+      <!-- Left Accordions -->
+      <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="accordion-wrapper right">
+                  <div class="accordion">
+                      <input type="radio" name="left-group" id="left1" />
+                      <label class="accordion-label" for="left1" data-sync="right1">
+                        <span
+                          ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                          20 Minutes Per Work Order</span
+                        >
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                      </label>
+                      <div class="accordion-content">
+                        <div class="content-inner">
+                          <div class="content-enhanced">
+                            <p>
+                              Generating and distributing work orders often requires
+                              dual data entry and various communication methods. On
+                              average it takes 20 minutes to generate a single work
+                              order.
+                            </p>
+                          </div>
                         </div>
+                      </div>
                     </div>
-
-                    <div class="comparison-side after">
-                        <h3 class="comparison-title">With UtilizeCore</h3>
-
-                        <div class="accordion" id="after-accordion">
-                            <div class="accordion-item" data-index="0">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✓</span>
-                                        1 Minute Per Work Order
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Generate and distribute work orders with ease all from one platform within 60
-                                        seconds - resulting in weeks (sometimes months) of saved time each year.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="1">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✓</span>
-                                        Real Time Site Visibility
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Use our state-of-the-art web and mobile app to monitor your team's performance
-                                        and to help maintain the highest quality service at all times.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="2">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✓</span>
-                                        A Single Platform for All Communications
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Get real-time updates from subcontractors in one easy-to-use platform. This
-                                        avoids unnecessary errors and speeds up project delivery times - leading to
-                                        increased client satisfaction.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="3">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✓</span>
-                                        3 Minutes Per Invoice
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Easily generate invoices with pinpoint accuracy for each client, site or vendor
-                                        in under 3 minutes using our powerful rate automations and bulk generation
-                                        tools.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item" data-index="4">
-                                <div class="accordion-header">
-                                    <div class="accordion-title">
-                                        <span class="accordion-icon">✓</span>
-                                        Minutes for Subcontractor Compliance & Onboarding
-                                    </div>
-                                    <span class="accordion-toggle" aria-hidden="true">
-                                        <svg class="accordion-arrow" width="16" height="16" viewBox="0 0 24 24"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="accordion-content">
-                                    <div class="accordion-body">
-                                        Onboard new subcontractors and carry out compliance processing in under 30
-                                        minutes.
-                                    </div>
-                                </div>
-                            </div>
+  
+                    <div class="accordion">
+                      <input type="radio" name="left-group" id="left2" />
+                      <label class="accordion-label" for="left2" data-sync="right2">
+                        <span
+                          ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                          No Visibility Into Work Performed</span
+                        >
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                      </label>
+                      <div class="accordion-content">
+                        <div class="content-inner">
+                          <div class="content-enhanced">
+                            <p>
+                              When your reputation relies on the quality of your work,
+                              not having clear visibility over your workforce is
+                              detrimental to quality assurance.
+                            </p>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
+  
+                    <div class="accordion">
+                      <input type="radio" name="left-group" id="left3" />
+                      <label class="accordion-label" for="left3" data-sync="right3">
+                        <span
+                          ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                          Disconnected Communication Methods</span
+                        >
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                      </label>
+                      <div class="accordion-content">
+                        <div class="content-inner">
+                          <div class="content-enhanced">
+                            <p>
+                              Relying on subcontractors to provide job updates and
+                              photos can take hours (if not days), which causes
+                              unnecessary delays.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="accordion">
+                      <input type="radio" name="left-group" id="left4" />
+                      <label class="accordion-label" for="left4" data-sync="right4">
+                        <span
+                          ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> 30 Minutes Per Invoice</span
+                        >
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                      </label>
+                      <div class="accordion-content">
+                        <div class="content-inner">
+                          <div class="content-enhanced">
+                          
+                            <p>
+                                Cross referencing rate tables and calculating invoices takes 30 minutes per invoice (on average), leading to oversights, delays and lost income.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="accordion">
+                      <input type="radio" name="left-group" id="left5" />
+                      <label class="accordion-label" for="left5" data-sync="right5">
+                        <span
+                          ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> Hours for Subcontractor Compliance & Onboarding </span
+                        >
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                      </label>
+                      <div class="accordion-content">
+                        <div class="content-inner">
+                          <div class="content-enhanced">
+                          
+                            <p>
+                                Onboarding new subcontractors involves compliance checks, paperwork, and manual tasks that can take up to 5 hours to complete.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
             </div>
+  
+      <!-- Right Accordions -->
+      <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="accordion-wrapper left">
+                <div class="accordion">
+                  <input type="radio" name="right-group" id="right1" />
+                  <label class="accordion-label" for="right1" data-sync="left1">
+                    <span
+                      ><i class="fas fa-lightbulb"></i> Creative Solutions</span
+                    >
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                  </label>
+                  <div class="accordion-content">
+                    <div class="content-inner">
+                      <div class="content-enhanced">
+                        <p><strong>Innovative Approach</strong></p>
+                        <p>
+                          Transform ideas into reality with our creative
+                          problem-solving methodologies and design thinking
+                          processes.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion">
+                  <input type="radio" name="right-group" id="right2" />
+                  <label class="accordion-label" for="right2" data-sync="left2">
+                    <span
+                      ><i class="fas fa-handshake"></i> Partnership Network</span
+                    >
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                  </label>
+                  <div class="accordion-content">
+                    <div class="content-inner">
+                      <div class="content-enhanced">
+                        <p><strong>Strategic Alliances</strong></p>
+                        <p>
+                          Build lasting partnerships with industry leaders and
+                          expand your network through collaborative initiatives.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion">
+                  <input type="radio" name="right-group" id="right3" />
+                  <label class="accordion-label" for="right3" data-sync="left3">
+                    <span
+                      ><i class="fas fa-target"></i> Performance
+                      Optimization</span
+                    >
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                  </label>
+                  <div class="accordion-content">
+                    <div class="content-inner">
+                      <div class="content-enhanced">
+                        <p><strong>Maximum Efficiency</strong></p>
+                        <p>
+                          Optimize your workflows and processes to achieve peak
+                          performance with minimal resource utilization.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion">
+                  <input type="radio" name="right-group" id="right4" />
+                  <label class="accordion-label" for="right4" data-sync="left4">
+                    <span><i class="fas fa-lock"></i> Compliance Management</span>
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                  </label>
+                  <div class="accordion-content">
+                    <div class="content-inner">
+                      <div class="content-enhanced">
+                        <p><strong>Regulatory Excellence</strong></p>
+                        <p>
+                          Stay compliant with industry regulations and standards
+                          through automated monitoring and reporting systems.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="accordion">
+                  <input type="radio" name="right-group" id="right5" />
+                  <label class="accordion-label" for="right5" data-sync="left5">
+                    <span
+                      ><i class="fas fa-satellite"></i> Digital
+                      Transformation</span
+                    >
+                    <i class="fas fa-chevron-down accordion-icon"></i>
+                  </label>
+                  <div class="accordion-content">
+                    <div class="content-inner">
+                      <div class="content-enhanced">
+                        <p><strong>Future-Ready Technology</strong></p>
+                        <p>
+                          Embrace digital transformation with cloud-native
+                          solutions and AI-powered automation capabilities.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+          </div>
         </div>
-    </section>
+      </div>
+  
+      <!-- mobile responsive --------------------------------------------------------->
+      <div class="container mobile-responsive">
+        <div class="row p-10 gap-3">
+          <div class="col-md-4 accordion-main-container">
+            <h6 class="text-danger p-2" style="font-weight: 600">
+              before UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <!-- accordion one two-->
+              <div class="accordion">
+                <input type="radio" name="left-group" id="left1" />
+                <label class="accordion-label" for="left1" data-sync="right1">
+                  <span
+                    ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                    20 Minutes Per Work Order</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        Generating and distributing work orders often requires
+                        dual data entry and various communication methods. On
+                        average it takes 20 minutes to generate a single work
+                        order.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-success p-2" style="font-weight: 600">
+              With UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right1" />
+                <label class="accordion-label" for="right1" data-sync="left1">
+                  <span
+                    ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                    1 Minute Per Work Order</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        Generate and distribute work orders with ease all from one
+                        platform within 60 seconds - resulting in weeks (sometimes
+                        months) of saved time each year.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- accordion one end -->
+          </div>
+  
+          <!-- accordion two start -->
+          <div class="col-md-4 accordion-main-container">
+            <h6 class="text-danger p-2" style="font-weight: 600">
+              before UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="left-group" id="left2" />
+                <label class="accordion-label" for="left2" data-sync="right2">
+                  <span
+                    ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                    No Visibility Into Work Performed</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        When your reputation relies on the quality of your work,
+                        not having clear visibility over your workforce is
+                        detrimental to quality assurance.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-success p-2" style="font-weight: 600">
+              With UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right2" />
+                <label class="accordion-label" for="right2" data-sync="left2">
+                  <span
+                    ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                    1Real Time Site Visibility</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        Use our state-of-the-art web and mobile app to monitor
+                        your team's performance and to help maintain the highest
+                        quality service at all times.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- accordion two end -->
+  
+          <!-- accordion three start -->
+          <div class="col-md-4 accordion-main-container">
+            <h6 class="text-danger p-2" style="font-weight: 600">
+              before UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="left-group" id="left3" />
+                <label class="accordion-label" for="left3" data-sync="right3">
+                  <span
+                    ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                    Disconnected Communication Methods</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        Relying on subcontractors to provide job updates and
+                        photos can take hours (if not days), which causes
+                        unnecessary delays.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6 class="text-success p-2" style="font-weight: 600">
+              With UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right3" />
+                <label class="accordion-label" for="right3" data-sync="left3">
+                  <span
+                    ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                    A Single Platform for All Communications</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p>
+                        Get real-time updates from subcontractors in one
+                        easy-to-use platform. This avoids unnecessary errors and
+                        speeds up project delivery times - leading to increased
+                        client satisfaction.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- accordion three end -->
+  
+          <!-- accordion four start -->
+          <div class="col-md-4 accordion-main-container">
+              <h6
+              class="text-danger p-2"
+               style="font-weight: 600; "
+            >
+              before UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="left-group" id="left4" />
+                <label class="accordion-label" for="left4" data-sync="right4">
+                  <span
+                    ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> 30 Minutes Per Invoice</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                    
+                      <p>
+                          Cross referencing rate tables and calculating invoices takes 30 minutes per invoice (on average), leading to oversights, delays and lost income.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6
+              class="text-success p-2"
+               style="font-weight: 600; "
+            >
+              With UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right4" />
+                <label class="accordion-label" for="right4" data-sync="left4">
+                  <span
+                    ><i class="accordion-icon-check fa-solid fa-circle-check"></i> 3 Minutes Per Invoice</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                  
+                      <p>
+                          Easily generate invoices with pinpoint accuracy for each client, site or vendor in under 3 minutes using our powerful rate automations and bulk generation tools.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- accordion four end -->
+  
+          <!-- accordion five start -->
+          <div class="col-md-4 accordion-main-container">
+              <h6
+              class="text-danger p-2"
+               style="font-weight: 600; "
+            >
+              before UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="left-group" id="left5" />
+                <label class="accordion-label" for="left5" data-sync="right5">
+                  <span
+                    ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> Hours for Subcontractor Compliance & Onboarding </span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                    
+                      <p>
+                          Onboarding new subcontractors involves compliance checks, paperwork, and manual tasks that can take up to 5 hours to complete.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h6
+              class="text-success p-2"
+               style="font-weight: 600; "
+            >
+              With UtilizeCore
+            </h6>
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right5" />
+                <label class="accordion-label" for="right5" data-sync="left5">
+                  <span
+                    ><i class="accordion-icon-check fa-solid fa-circle-check"></i> Minutes for Subcontractor Compliance & Onboarding</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                  
+                      <p>
+                          Onboard new subcontractors and carry out compliance processing in under 30 minutes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- accordion five end -->
+        </div>
+      </div>
     <!-- ============COMPARISION SECTION ENDS============ -->
 
     <!-- ===== SOLUTIONS SECTION ===== -->

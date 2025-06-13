@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enhanced Synced Accordions</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        color: #1a202c;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem 1rem;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+      }
+
+      .accordion-main-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.685);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .accordion-icon-xmark {
+        color: rgb(255, 160, 160);
+      }
+      .accordion-icon-check {
+        color: rgb(160, 255, 163);
+      }
+
+      .sync-indicator {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+      }
+
+      .sync-indicator.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+      }
+
+      .accordion-wrapper {
+        border-radius: 15px;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .accordion {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 2px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .accordion:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .accordion-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .accordion-label::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .accordion-label:hover::before {
+        left: 100%;
+      }
+
+      .accordion-label:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .accordion-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 1.5rem;
+        background: white;
+        color: #4a5568;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .accordion-content p {
+        margin: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #666;
+      }
+
+      .content-inner {
+        padding: 1.5rem 0;
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: all 0.3s ease 0.1s;
+      }
+
+      input:checked + .accordion-label {
+        background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+        color: rgb(255, 255, 255);
+        transform: translateX(0);
+      }
+
+      input:checked + .accordion-label .accordion-icon {
+        transform: rotate(180deg);
+      }
+
+      input:checked ~ .accordion-content {
+        max-height: 300px;
+        padding: 0 1.5rem;
+      }
+
+      input:checked ~ .accordion-content .content-inner {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Enhanced shadows for active states */
+      .left input:checked ~ .accordion-label,
+      .left input:checked ~ .accordion-content {
+        box-shadow: 0 20px 40px rgba(0, 255, 94, 0.3);
+      }
+
+      .right input:checked ~ .accordion-label,
+      .right input:checked ~ .accordion-content {
+        box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+      }
+
+      /* Pulse animation for synced items */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.02);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .synced-pulse {
+        animation: pulse 0.6s ease-in-out;
+      }
+
+      /* Enhanced content styling */
+      .content-enhanced {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-left: 4px solid #667eea;
+      }
+
+      /* Responsive improvements */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 1rem;
+          margin: 1rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .accordion-label {
+          padding: 1rem;
+          font-size: 1rem;
+        }
+
+        .accordion-content {
+          padding: 0 1rem;
+        }
+
+        input:checked ~ .accordion-content {
+          padding: 0 1rem;
+        }
+      }
+
+      /* Loading animation */
+      .accordion-wrapper {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Stagger animation for accordions */
+      .accordion:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .accordion:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .accordion:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .accordion:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .accordion:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      .mobile-responsive{
+        display: none;
+      }
+      @media (max-width: 480px) {
+       .mobile-responsive{
+        display: block;
+       }
+       .screen{
+        display: none;
+       }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="accordion-main-container screen">
+      <div class="container-fluid">
+        <div class="row g-4">
+    <!-- Left Accordions -->
+    <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="accordion-wrapper right">
+                <div class="accordion">
+                    <input type="radio" name="left-group" id="left1" />
+                    <label class="accordion-label" for="left1" data-sync="right1">
+                      <span
+                        ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                        20 Minutes Per Work Order</span
+                      >
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                    </label>
+                    <div class="accordion-content">
+                      <div class="content-inner">
+                        <div class="content-enhanced">
+                          <p>
+                            Generating and distributing work orders often requires
+                            dual data entry and various communication methods. On
+                            average it takes 20 minutes to generate a single work
+                            order.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion">
+                    <input type="radio" name="left-group" id="left2" />
+                    <label class="accordion-label" for="left2" data-sync="right2">
+                      <span
+                        ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                        No Visibility Into Work Performed</span
+                      >
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                    </label>
+                    <div class="accordion-content">
+                      <div class="content-inner">
+                        <div class="content-enhanced">
+                          <p>
+                            When your reputation relies on the quality of your work,
+                            not having clear visibility over your workforce is
+                            detrimental to quality assurance.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion">
+                    <input type="radio" name="left-group" id="left3" />
+                    <label class="accordion-label" for="left3" data-sync="right3">
+                      <span
+                        ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                        Disconnected Communication Methods</span
+                      >
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                    </label>
+                    <div class="accordion-content">
+                      <div class="content-inner">
+                        <div class="content-enhanced">
+                          <p>
+                            Relying on subcontractors to provide job updates and
+                            photos can take hours (if not days), which causes
+                            unnecessary delays.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion">
+                    <input type="radio" name="left-group" id="left4" />
+                    <label class="accordion-label" for="left4" data-sync="right4">
+                      <span
+                        ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> 30 Minutes Per Invoice</span
+                      >
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                    </label>
+                    <div class="accordion-content">
+                      <div class="content-inner">
+                        <div class="content-enhanced">
+                        
+                          <p>
+                              Cross referencing rate tables and calculating invoices takes 30 minutes per invoice (on average), leading to oversights, delays and lost income.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion">
+                    <input type="radio" name="left-group" id="left5" />
+                    <label class="accordion-label" for="left5" data-sync="right5">
+                      <span
+                        ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> Hours for Subcontractor Compliance & Onboarding </span
+                      >
+                      <i class="fas fa-chevron-down accordion-icon"></i>
+                    </label>
+                    <div class="accordion-content">
+                      <div class="content-inner">
+                        <div class="content-enhanced">
+                        
+                          <p>
+                              Onboarding new subcontractors involves compliance checks, paperwork, and manual tasks that can take up to 5 hours to complete.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+
+    <!-- Right Accordions -->
+    <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="accordion-wrapper left">
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right1" />
+                <label class="accordion-label" for="right1" data-sync="left1">
+                  <span
+                    ><i class="fas fa-lightbulb"></i> Creative Solutions</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p><strong>Innovative Approach</strong></p>
+                      <p>
+                        Transform ideas into reality with our creative
+                        problem-solving methodologies and design thinking
+                        processes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right2" />
+                <label class="accordion-label" for="right2" data-sync="left2">
+                  <span
+                    ><i class="fas fa-handshake"></i> Partnership Network</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p><strong>Strategic Alliances</strong></p>
+                      <p>
+                        Build lasting partnerships with industry leaders and
+                        expand your network through collaborative initiatives.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right3" />
+                <label class="accordion-label" for="right3" data-sync="left3">
+                  <span
+                    ><i class="fas fa-target"></i> Performance
+                    Optimization</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p><strong>Maximum Efficiency</strong></p>
+                      <p>
+                        Optimize your workflows and processes to achieve peak
+                        performance with minimal resource utilization.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right4" />
+                <label class="accordion-label" for="right4" data-sync="left4">
+                  <span><i class="fas fa-lock"></i> Compliance Management</span>
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p><strong>Regulatory Excellence</strong></p>
+                      <p>
+                        Stay compliant with industry regulations and standards
+                        through automated monitoring and reporting systems.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion">
+                <input type="radio" name="right-group" id="right5" />
+                <label class="accordion-label" for="right5" data-sync="left5">
+                  <span
+                    ><i class="fas fa-satellite"></i> Digital
+                    Transformation</span
+                  >
+                  <i class="fas fa-chevron-down accordion-icon"></i>
+                </label>
+                <div class="accordion-content">
+                  <div class="content-inner">
+                    <div class="content-enhanced">
+                      <p><strong>Future-Ready Technology</strong></p>
+                      <p>
+                        Embrace digital transformation with cloud-native
+                        solutions and AI-powered automation capabilities.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- mobile responsive --------------------------------------------------------->
+    <div class="container mobile-responsive">
+      <div class="row p-10 gap-3">
+        <div class="col-md-4 accordion-main-container">
+          <h6 class="text-danger p-2" style="font-weight: 600">
+            before UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <!-- accordion one two-->
+            <div class="accordion">
+              <input type="radio" name="left-group" id="left1" />
+              <label class="accordion-label" for="left1" data-sync="right1">
+                <span
+                  ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                  20 Minutes Per Work Order</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      Generating and distributing work orders often requires
+                      dual data entry and various communication methods. On
+                      average it takes 20 minutes to generate a single work
+                      order.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 class="text-success p-2" style="font-weight: 600">
+            With UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="right-group" id="right1" />
+              <label class="accordion-label" for="right1" data-sync="left1">
+                <span
+                  ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                  1 Minute Per Work Order</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      Generate and distribute work orders with ease all from one
+                      platform within 60 seconds - resulting in weeks (sometimes
+                      months) of saved time each year.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- accordion one end -->
+        </div>
+
+        <!-- accordion two start -->
+        <div class="col-md-4 accordion-main-container">
+          <h6 class="text-danger p-2" style="font-weight: 600">
+            before UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="left-group" id="left2" />
+              <label class="accordion-label" for="left2" data-sync="right2">
+                <span
+                  ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                  No Visibility Into Work Performed</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      When your reputation relies on the quality of your work,
+                      not having clear visibility over your workforce is
+                      detrimental to quality assurance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 class="text-success p-2" style="font-weight: 600">
+            With UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="right-group" id="right2" />
+              <label class="accordion-label" for="right2" data-sync="left2">
+                <span
+                  ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                  1Real Time Site Visibility</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      Use our state-of-the-art web and mobile app to monitor
+                      your team's performance and to help maintain the highest
+                      quality service at all times.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- accordion two end -->
+
+        <!-- accordion three start -->
+        <div class="col-md-4 accordion-main-container">
+          <h6 class="text-danger p-2" style="font-weight: 600">
+            before UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="left-group" id="left3" />
+              <label class="accordion-label" for="left3" data-sync="right3">
+                <span
+                  ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i>
+                  Disconnected Communication Methods</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      Relying on subcontractors to provide job updates and
+                      photos can take hours (if not days), which causes
+                      unnecessary delays.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 class="text-success p-2" style="font-weight: 600">
+            With UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="right-group" id="right3" />
+              <label class="accordion-label" for="right3" data-sync="left3">
+                <span
+                  ><i class="accordion-icon-check fa-solid fa-circle-check"></i>
+                  A Single Platform for All Communications</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                    <p>
+                      Get real-time updates from subcontractors in one
+                      easy-to-use platform. This avoids unnecessary errors and
+                      speeds up project delivery times - leading to increased
+                      client satisfaction.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- accordion three end -->
+
+        <!-- accordion four start -->
+        <div class="col-md-4 accordion-main-container">
+            <h6
+            class="text-danger p-2"
+             style="font-weight: 600; "
+          >
+            before UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="left-group" id="left4" />
+              <label class="accordion-label" for="left4" data-sync="right4">
+                <span
+                  ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> 30 Minutes Per Invoice</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                  
+                    <p>
+                        Cross referencing rate tables and calculating invoices takes 30 minutes per invoice (on average), leading to oversights, delays and lost income.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6
+            class="text-success p-2"
+             style="font-weight: 600; "
+          >
+            With UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="right-group" id="right4" />
+              <label class="accordion-label" for="right4" data-sync="left4">
+                <span
+                  ><i class="accordion-icon-check fa-solid fa-circle-check"></i> 3 Minutes Per Invoice</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                
+                    <p>
+                        Easily generate invoices with pinpoint accuracy for each client, site or vendor in under 3 minutes using our powerful rate automations and bulk generation tools.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- accordion four end -->
+
+        <!-- accordion five start -->
+        <div class="col-md-4 accordion-main-container">
+            <h6
+            class="text-danger p-2"
+             style="font-weight: 600; "
+          >
+            before UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="left-group" id="left5" />
+              <label class="accordion-label" for="left5" data-sync="right5">
+                <span
+                  ><i class="accordion-icon-xmark fa-solid fa-circle-xmark"></i> Hours for Subcontractor Compliance & Onboarding </span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                  
+                    <p>
+                        Onboarding new subcontractors involves compliance checks, paperwork, and manual tasks that can take up to 5 hours to complete.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6
+            class="text-success p-2"
+             style="font-weight: 600; "
+          >
+            With UtilizeCore
+          </h6>
+          <div class="accordion-wrapper left">
+            <div class="accordion">
+              <input type="radio" name="right-group" id="right5" />
+              <label class="accordion-label" for="right5" data-sync="left5">
+                <span
+                  ><i class="accordion-icon-check fa-solid fa-circle-check"></i> Minutes for Subcontractor Compliance & Onboarding</span
+                >
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </label>
+              <div class="accordion-content">
+                <div class="content-inner">
+                  <div class="content-enhanced">
+                
+                    <p>
+                        Onboard new subcontractors and carry out compliance processing in under 30 minutes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- accordion five end -->
+      </div>
+    </div>
+
+    <script>
+        // Enhanced synchronization with open/close functionality
+        document.querySelectorAll('.accordion-label').forEach((label) => {
+          label.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default radio button behavior
+            
+            const currentInput = document.getElementById(label.getAttribute('for'));
+            const syncId = label.getAttribute('data-sync');
+            const syncInput = document.getElementById(syncId);
+            const syncLabel = document.querySelector(`label[for="${syncId}"]`);
+            
+            // Check if current accordion is already open
+            const isCurrentOpen = currentInput.checked;
+            
+            if (isCurrentOpen) {
+              // Close both accordions
+              currentInput.checked = false;
+              if (syncInput) {
+                syncInput.checked = false;
+              }
+            } else {
+              // Close all other accordions in the same group first
+              const groupName = currentInput.getAttribute('name');
+              const syncGroupName = syncInput ? syncInput.getAttribute('name') : '';
+              
+              document.querySelectorAll(`input[name="${groupName}"]`).forEach(input => {
+                input.checked = false;
+              });
+              
+              if (syncGroupName) {
+                document.querySelectorAll(`input[name="${syncGroupName}"]`).forEach(input => {
+                  input.checked = false;
+                });
+              }
+              
+              // Open current and synced accordions
+              currentInput.checked = true;
+              if (syncInput) {
+                syncInput.checked = true;
+                
+                // Add pulse animation to synced item
+                if (syncLabel) {
+                  syncLabel.classList.add('synced-pulse');
+                  setTimeout(() => {
+                    syncLabel.classList.remove('synced-pulse');
+                  }, 600);
+                }
+              }
+              
+              // Show sync indicator
+              const indicator = document.getElementById('syncIndicator');
+              indicator.classList.add('active');
+              setTimeout(() => {
+                indicator.classList.remove('active');
+              }, 2000);
+            }
+          });
+        });
+  
+        // Auto-hide sync indicator after initial load
+        setTimeout(() => {
+          const indicator = document.getElementById('syncIndicator');
+          indicator.classList.add('active');
+          setTimeout(() => {
+            indicator.classList.remove('active');
+          }, 3000);
+        }, 1000);
+  
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            // Close all accordions
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+              input.checked = false;
+            });
+          }
+        });
+  
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('.accordion-label').forEach((label) => {
+          label.addEventListener('click', () => {
+            setTimeout(() => {
+              label.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+              });
+            }, 100);
+          });
+        });
+  
+        // Handle direct input clicks (for accessibility)
+        document.querySelectorAll('input[type="radio"]').forEach((input) => {
+          input.addEventListener('change', (e) => {
+            if (e.target.checked) {
+              const label = document.querySelector(`label[for="${e.target.id}"]`);
+              if (label) {
+                const syncId = label.getAttribute('data-sync');
+                const syncInput = document.getElementById(syncId);
+                if (syncInput) {
+                  syncInput.checked = true;
+                }
+              }
+            }
+          });
+        });
+      </script>
+  </body>
+</html>

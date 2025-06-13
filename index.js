@@ -228,3 +228,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new SynchronizedAccordion();
 });
+
+// accordion -----------------
+
+ // Enhanced synchronization with open/close functionality
+ document.querySelectorAll('.accordion-label').forEach((label) => {
+  label.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent default radio button behavior
+    
+    const currentInput = document.getElementById(label.getAttribute('for'));
+    const syncId = label.getAttribute('data-sync');
+    const syncInput = document.getElementById(syncId);
+    const syncLabel = document.querySelector(`label[for="${syncId}"]`);
+    
+    // Check if current accordion is already open
+    const isCurrentOpen = currentInput.checked;
+    
+    if (isCurrentOpen) {
+      // Close both accordions
+      currentInput.checked = false;
+      if (syncInput) {
+        syncInput.checked = false;
+      }
+    } else {
+      // Close all other accordions in the same group first
+      const groupName = currentInput.getAttribute('name');
+      const syncGroupName = syncInput ? syncInput.getAttribute('name') : '';
+      
+      document.querySelectorAll(`input[name="${groupName}"]`).forEach(input => {
+        input.checked = false;
+      });
+      
+      if (syncGroupName) {
+        document.querySelectorAll(`input[name="${syncGroupName}"]`).forEach(input => {
+          input.checked = false;
+        });
+      }
+      
+      // Open current and synced accordions
+      currentInput.checked = true;
+      if (syncInput) {
+        syncInput.checked = true;
+        
+        // Add pulse animation to synced item
+        if (syncLabel) {
+          syncLabel.classList.add('synced-pulse');
+          setTimeout(() => {
+            syncLabel.classList.remove('synced-pulse');
+          }, 600);
+        }
+      }
+      
+      // Show sync indicator
+      const indicator = document.getElementById('syncIndicator');
+      indicator.classList.add('active');
+      setTimeout(() => {
+        indicator.classList.remove('active');
+      }, 2000);
+    }
+  });
+});
+
+// Auto-hide sync indicator after initial load
+setTimeout(() => {
+  const indicator = document.getElementById('syncIndicator');
+  indicator.classList.add('active');
+  setTimeout(() => {
+    indicator.classList.remove('active');
+  }, 3000);
+}, 1000);
+
+// Enhanced keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    // Close all accordions
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.checked = false;
+    });
+  }
+});
+
+// Add smooth scrolling for better UX
+document.querySelectorAll('.accordion-label').forEach((label) => {
+  label.addEventListener('click', () => {
+    setTimeout(() => {
+      label.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 100);
+  });
+});
+
+// Handle direct input clicks (for accessibility)
+document.querySelectorAll('input[type="radio"]').forEach((input) => {
+  input.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      const label = document.querySelector(`label[for="${e.target.id}"]`);
+      if (label) {
+        const syncId = label.getAttribute('data-sync');
+        const syncInput = document.getElementById(syncId);
+        if (syncInput) {
+          syncInput.checked = true;
+        }
+      }
+    }
+  });
+});
+
+
+// ---------------------------
